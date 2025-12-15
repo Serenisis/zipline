@@ -17,6 +17,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", 1);
 app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
@@ -31,7 +33,7 @@ app.use(session({
 }));
 // SIGNUP
 app.post("/signup", upload.single("photo"), async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password } = req.body || {};
   const hashedPassword = await bcrypt.hash(password, 10);
   const photo = req.file ? req.file.filename : null;
 
@@ -50,7 +52,7 @@ app.post("/signup", upload.single("photo"), async (req, res) => {
 
 // LOGIN
 app.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body || {};
 
   db.get(
     "SELECT * FROM users WHERE email = ?",
