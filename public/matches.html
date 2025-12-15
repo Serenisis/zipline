@@ -1,0 +1,19 @@
+<h1>Your Matches</h1>
+<div id="matches"></div>
+
+<script>
+fetch("/matches")
+  .then(res => res.json())
+  .then(matches => {
+    const div = document.getElementById("matches");
+
+    matches.forEach(u => {
+      div.innerHTML += `
+        <div onclick="location.href='chat.html?user=${u.id}'">
+          <img src="${u.photo || ''}" width="80">
+          <p>${u.username}</p>
+        </div>
+      `;
+    });
+  });
+</script>

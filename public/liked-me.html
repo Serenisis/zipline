@@ -1,0 +1,18 @@
+<h1>People Who Liked You</h1>
+<div id="likes"></div>
+
+<script>
+fetch("/liked-me")
+  .then(res => res.json())
+  .then(users => {
+    const div = document.getElementById("likes");
+    users.forEach(u => {
+      div.innerHTML += `
+        <div>
+          <img src="${u.photo || ''}" width="80">
+          <p>${u.username}</p>
+        </div>
+      `;
+    });
+  });
+</script>

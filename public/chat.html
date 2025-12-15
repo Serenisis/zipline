@@ -1,0 +1,36 @@
+<div id="chat"></div>
+
+<input id="msg" placeholder="Type message..." />
+<button onclick="send()">Send</button>
+
+<script>
+const userId = new URLSearchParams(location.search).get("user");
+
+function loadMessages() {
+  fetch(`/messages/${userId}`)
+    .then(res => res.json())
+    .then(msgs => {
+      const chat = document.getElementById("chat");
+      chat.innerHTML = "";
+      msgs.forEach(m => {
+        chat.innerHTML += `<p>${m.text}</p>`;
+      });
+    });
+}
+
+function send() {
+  const text = document.getElementById("msg").value;
+
+  fetch("/message", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ receiverId: userId, text })
+  }).then(() => {
+    document.getElementById("msg").value = "";
+    loadMessages();
+  });
+}
+
+setInterval(loadMessages, 2000); // polling
+loadMessages();
+</script>

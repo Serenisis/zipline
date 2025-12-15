@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Your Profile</h1>
+
+  <!-- PROFILE PHOTO UPLOAD -->
+  <form id="photoForm">
+    <input type="file" name="photo" />
+    <button>Upload</button>
+  </form>
+
+  <!-- PROFILE PHOTO DISPLAY -->
+  <img id="profilePic" width="200" />
+
+  <!-- SCRIPT GOES AT THE BOTTOM OF BODY -->
+  <script>
+    document.getElementById("photoForm").onsubmit = (e) => {
+      e.preventDefault();
+
+      const data = new FormData(e.target);
+
+      fetch("/upload-photo", {
+        method: "POST",
+        body: data
+      })
+        .then(res => res.json())
+        .then(d => {
+  document.getElementById("profilePic").src = d.photo;
+
+  // ⏩ Redirect after 1 second
+  setTimeout(() => {
+    window.location.href = "/swipe.html";
+  }, 1000);
+});
+    };
+  </script>
+
+</body>
+</html>
+<br><br>
+
+<a href="/swipe.html">
+  <button>Go to Swipe</button>
+</a>
+
+<a href="/matches.html">
+  <button>My Matches</button>
+</a>
+
+<a href="/profile">Home</a>

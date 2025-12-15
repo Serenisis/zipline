@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6ff;
+  text-align: center;
+  padding-top: 80px;
+}
+
+h1 {
+  color: #2b2f77;
+  font-size: 42px;
+}
+
+p {
+  color: #444;
+  font-size: 18px;
+}
+form {
+  width: 300px;
+  margin: 40px auto;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: #2b2f77;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f235a;
+}
+
+a {
+  color: #2b2f77;
+  text-decoration: none;
+}
+
+#card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
